@@ -1,75 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "nodes.h"
-#include "edges.h"
-#include "algo.h"
+#include "graph.h"
+
+void build_graph_cmd(pnode *head);
+void insert_node_cmd(pnode *head);
+void delete_node_cmd(pnode *head);
+void deleteGraph_cmd(pnode* head);
+void shortsPath_cmd(pnode head);
+void TSP_cmd(pnode head);
+pnode create_graph(int size);
+
+
 
 
 int main()
 {
     char cmd;
+    pnode head = NULL;
+    scanf("%c",&cmd);
 
-    scanf(" %c",&cmd);
-
-    while(cmd != 'D')
+    while(cmd != EOF)
     {
         if(cmd == 'A')
         {
-            if(arr_edges != NULL)
-            {
-                free(arr_edges);
-               free(arr_nodes);
-            }
-            int n;
-            scanf(" %d", &n);
-            int edges_size = n*(n-1)*2+(n-1);
-            int *arr_nodes=(int*)malloc(sizeof(int)*n);
-            int *arr_edges=(int*)malloc(sizeof(int)*edges_size);
-            scanf(" %c", &cmd);
-            int index = 0;
-            int node_index = 0;
-            int last_was_n = 0;
-            while(cmd != 'B' && cmd != 'D' && cmd != 'S' && cmd != 'T')
-            {
-                if(cmd == 'n')
-                {
-                    
-                    arr_edges[index] = -1;
-                    last_was_n = 1;
-                }
-                else
-                {
-                    int num = cmd - '0';
-                    arr_edges[index] = num;
-                    if(last_was_n == 1)
-                    {
-                        printf("HERE");
-                        printf("\n");
-                        arr_nodes[node_index] = num;
-                        node_index++;
-                        last_was_n = 0;
-                    }
-                }
-                index++;
-                scanf(" %c", &cmd);
-            }
-
-
+            deleteGraph_cmd(&head);
+            int size;
+            scanf("%d", &size);
+            head = create_graph(size);
+        }
+        if(cmd == 'n')
+        {
+            build_graph_cmd(&head);
         }
         if(cmd == 'B')
         {
-            int i,j;
-            scanf("%d",&i);
-            scanf("%d",&j);
-            printf("\n");
+            insert_node_cmd(&head);
         }
-        if(cmd == 'C')
+        if(cmd == 'T')
         {
-            int i,j;
-            scanf("%d",&i);
-            scanf("%d",&j);
-            printf("\n");
+            TSP_cmd(head);
+        }
+        if(cmd == 'S')
+        {
+            shortsPath_cmd(head);
+        }
+        if(cmd == 'D')
+        {
+            delete_node_cmd(&head);
         }
         scanf("%s",&cmd);
     }
+    deleteGraph_cmd(&head);
+    return 0;
 }

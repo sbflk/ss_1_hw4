@@ -4,20 +4,15 @@ FLAGS = -Wall -g
 
 all: graph
 
-graph: $(OBJECTS_MAIN) nodes.o edges.o algo.o
-	$(CC) $(FLAGS) -o graph $(OBJECTS_MAIN) nodes.o edges.o algo.o
+graph: $(OBJECTS_MAIN) graph.o
+	$(CC) $(FLAGS) $(OBJECTS_MAIN) graph.o -o graph
 
-main.o: main.c nodes.h edges.h algo.h
-	$(CC) $(FLAGS) -c main.c
+main.o: main.c graph.h
+	$(CC) $(FLAGS) -c main.c graph.h
 
-nodes.o: nodes.c nodes.h
-	$(CC) $(FLAGS) -c nodes.c
+graph.o: graph.c
+	$(CC) $(FLAGS) -c graph.c
 
-edges.o: edges.c edges.h
-	$(CC) $(FLAGS) -c edges.c
-
-algo.o: algo.c algo.h
-	$(CC) $(FLAGS) -c algo.c
 
 
 .PHONY = clean all
