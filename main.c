@@ -17,9 +17,9 @@ int main()
 {
     char cmd;
     pnode head = NULL;
-    scanf("%c",&cmd);
-
-    while(cmd != EOF)
+    int out = 0;
+    out = scanf("%c",&cmd);
+    while(out != EOF)
     {
         if(cmd == 'A')
         {
@@ -48,7 +48,7 @@ int main()
         {
             delete_node_cmd(&head);
         }
-        scanf("%s",&cmd);
+        out = scanf("%c", &cmd);
     }
     deleteGraph_cmd(&head);
     return 0;
